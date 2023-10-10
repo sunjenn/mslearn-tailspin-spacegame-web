@@ -4,14 +4,10 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-variables:
-  buildConfiguration: 'Release'
-
 steps:
 - task: UseDotNet@2
   displayName: 'Use .NET SDK 6.x'
   inputs:
-    packageType: sdk
     version: '6.x'
 
 - task: Npm@1
@@ -44,7 +40,7 @@ steps:
 
 - task: DotNetCoreCLI@2
   displayName: 'Publish the project - Release'
-  inputs: 
+  inputs:
     command: 'publish'
     projects: '**/*.csproj'
     publishWebProjects: false
@@ -52,5 +48,5 @@ steps:
     zipAfterPublish: true
 
 - task: PublishBuildArtifacts@1
- displayName: 'Publish Artifact: drop'
- condition: succeeded()
+  displayName: 'Publish Artifact: drop'
+  condition: succeeded()
